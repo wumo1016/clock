@@ -1,0 +1,28 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html{
+  height: 100%;
+  font-size: 16px;
+}
+ul{
+  margin: 0;
+  padding: 0;
+}
+li{
+  list-style-type: none;
+}
+body{
+  margin: 0;
+  height: 100%;
+  color: #fff;
+  font-size: 14px;
+}
+/* 公共样式 */
+#app{
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}

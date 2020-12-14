@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clock</title>
+  <link rel="icon" href="./favicon.ico">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/theme-chalk/index.css">
+  <link rel="stylesheet" type="text/css" href="./css/public.css" />
+</head>
+
+<style>
+  [v-cloak] {
+    display: none;
+  }
+
+  .colorPicker {
+    position: absolute;
+    right: 2vw;
+    top: 2vw;
+    z-index: 1;
+  }
+
+  .clock_box {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .time_box {
+    font-size: 20vw;
+  }
+
+  .date_box {
+    font-size: 15vw;
+  }
+
+  .colon {
+    animation: flashing 2s infinite;
+    -webkit-animation: flashing 2s infinite;
+  }
+
+  @keyframes flashing {
+    0% {
+      opacity: 1;
+    }
+
+    20% {
+      opacity: 1;
+    }
+
+    60% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<body>
+  <div id="app" :style="bodyStyle" v-cloak>
+    <div class="colorPicker">
+      <el-color-picker v-model="fontColor"></el-color-picker>
+      <el-color-picker v-model="bodyBac"></el-color-picker>
+    </div>
+    <div :style="fontStyle" class="clock_box" v-if="nowTime">
+      <div class="time_box">
+        {{ nowTime.hours }}<span class="colon">:</span>{{ nowTime.minutes }}
+      </div>
+      <div class="date_box">
+        {{ nowTime.month }}月{{ nowTime.day }}日
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js" rel=preload></script>
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
+  <script type="text/javascript" src="./js/tools.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        bodyBac: '#000337',
+        fontColor: '#fff',
+        nowTime: null,
+      },
+      computed: {
+        bodyStyle() {
+          return {
+            background: this.bodyBac
+          }
+        },
+        fontStyle() {
+          return {
+            color: this.fontColor
+          }
+        }
+      },
+      mounted() {
+        this.nowTime = getDealTime()
+        setTimeout(() => {
+          this.nowTime = getDealTime()
+        }, 1000)
+      },
+      methods: {},
+    })
+  </script>
+</body>
+
+</html>
